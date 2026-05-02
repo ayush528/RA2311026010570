@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import axios from "axios";
+import { Log } from "../../logging_middleware/logger";
 
 const app = express();
 app.use(express.json());
@@ -72,10 +73,6 @@ function topN(notifications: Notification[], n: number) {
     .slice(0, n);
 }
 
-// ============================================================
-// ROUTES
-// ============================================================
-
 // Health
 app.get("/", (_req: Request, res: Response) => {
   res.json({ status: "ok", message: "Afford backend server running" });
@@ -87,8 +84,10 @@ app.post("/api/auth", async (_req: Request, res: Response) => {
     const result = await axios.post(`${BASE_URL}/auth`, CREDENTIALS, {
       headers: { "Content-Type": "application/json" },
     });
+    await Log("backend", "info", "auth", "POST /api/auth success");
     res.json(result.data);
   } catch (err: any) {
+    await Log("backend", "error", "auth", `POST /api/auth failed: ${String(err?.message ?? err).slice(0, 30)}`);
     res.status(502).json({ error: err?.response?.data ?? err.message });
   }
 });
@@ -98,8 +97,10 @@ app.get("/api/depots", async (_req: Request, res: Response) => {
   try {
     const token = await getToken();
     const result = await axios.get(`${BASE_URL}/depots`, { headers: authHeader(token) });
+    await Log("backend", "info", "route", "GET /api/depots success");
     res.json(result.data);
   } catch (err: any) {
+    await Log("backend", "error", "route", `GET /api/depots failed: ${String(err?.message ?? err).slice(0, 28)}`);
     res.status(502).json({ error: err?.response?.data ?? err.message });
   }
 });
@@ -109,8 +110,10 @@ app.get("/api/vehicles", async (_req: Request, res: Response) => {
   try {
     const token = await getToken();
     const result = await axios.get(`${BASE_URL}/vehicles`, { headers: authHeader(token) });
+    await Log("backend", "info", "route", "GET /api/vehicles success");
     res.json(result.data);
   } catch (err: any) {
+    await Log("backend", "error", "route", `GET /api/vehicles failed: ${String(err?.message ?? err).slice(0, 26)}`);
     res.status(502).json({ error: err?.response?.data ?? err.message });
   }
 });
@@ -132,8 +135,10 @@ app.get("/api/schedule", async (_req: Request, res: Response) => {
       ...knapsack(vehicles, depot.MechanicHours),
     }));
 
+    await Log("backend", "info", "service", `GET /api/schedule depots=${depots.length}`);
     res.json({ totalDepots: depots.length, totalVehicles: vehicles.length, schedules });
   } catch (err: any) {
+    await Log("backend", "error", "service", `GET /api/schedule failed: ${String(err?.message ?? err).slice(0, 25)}`);
     res.status(502).json({ error: err?.response?.data ?? err.message });
   }
 });
@@ -143,8 +148,10 @@ app.get("/api/notifications", async (_req: Request, res: Response) => {
   try {
     const token = await getToken();
     const result = await axios.get(`${BASE_URL}/notifications`, { headers: authHeader(token) });
+    await Log("backend", "info", "route", "GET /api/notifications success");
     res.json(result.data);
   } catch (err: any) {
+    await Log("backend", "error", "route", `GET /api/notifications failed: ${String(err?.message ?? err).slice(0, 22)}`);
     res.status(502).json({ error: err?.response?.data ?? err.message });
   }
 });
@@ -156,8 +163,10 @@ app.get("/api/notifications/top", async (req: Request, res: Response) => {
     const token = await getToken();
     const result = await axios.get(`${BASE_URL}/notifications`, { headers: authHeader(token) });
     const notifications: Notification[] = result.data.notifications ?? result.data;
+    await Log("backend", "info", "route", `GET /api/notifications/top n=${n}`);
     res.json({ top: topN(notifications, n) });
   } catch (err: any) {
+    await Log("backend", "error", "route", `GET /notifications/top failed: ${String(err?.message ?? err).slice(0, 21)}`);
     res.status(502).json({ error: err?.response?.data ?? err.message });
   }
 });
@@ -169,11 +178,12 @@ app.post("/api/logs", async (req: Request, res: Response) => {
     const result = await axios.post(`${BASE_URL}/logs`, req.body, { headers: authHeader(token) });
     res.json(result.data);
   } catch (err: any) {
+    await Log("backend", "error", "route", `POST /api/logs failed: ${String(err?.message ?? err).slice(0, 29)}`);
     res.status(502).json({ error: err?.response?.data ?? err.message });
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`\n  Afford backend server → http://localhost:${PORT}\n`);
   console.log("  Routes:");
   console.log("    GET  /                       health check");
@@ -184,4 +194,5 @@ app.listen(PORT, () => {
   console.log("    GET  /api/notifications      raw notification feed");
   console.log("    GET  /api/notifications/top  top-N priority inbox (?n=10)");
   console.log("    POST /api/logs               post a log entry\n");
+  await Log("backend", "info", "service", `Server started on port ${PORT}`);
 });
