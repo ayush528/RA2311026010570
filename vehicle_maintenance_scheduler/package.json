@@ -1,0 +1,20 @@
+{
+  "name": "vehicle-maintenance-scheduler",
+  "version": "1.0.0",
+  "description": "Vehicle maintenance scheduler using 0/1 knapsack algorithm",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "npx ts-node src/index.ts",
+    "server": "npx ts-node src/server.ts"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Log } from "../logging_middleware/logger";
+import { Log } from "../../logging_middleware/src/logger";
 import * as fs from "fs";
 import * as path from "path";
 
