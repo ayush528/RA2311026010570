@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Log } from "../middleware/logger";
+import { Log } from "../logging_middleware/logger";
 
 const BASE_URL = "http://20.207.122.201/evaluation-service";
 

@@ -10,15 +10,14 @@
 
 ```
 afford/
-├── src/
-│   ├── middleware/         # Logger utility
-│   ├── notifications/      # Priority inbox implementation
-│   └── vehicle-scheduling/ # Vehicle maintenance scheduler
-├── vehicle_scheduling/     # Output artefacts (JSON + text)
-├── project_details/        # Problem screenshots & credentials
-├── postman_screenshots/    # ← Postman API response screenshots (see below)
+├── logging_middleware/             # Logger utility
+├── vehicle_maintence_scheduler/    # Vehicle maintenance scheduler
+├── notification_app_be/            # Priority inbox implementation
 ├── notification_system_design.md
-├── tsconfig.json
+├── vehicle_scheduling/             # Output artefacts (JSON + text)
+├── postman_screenshots/            # ← Postman API response screenshots (see below)
+├── src/server/                     # Express API server
+├── .gitignore
 └── package.json
 ```
 
