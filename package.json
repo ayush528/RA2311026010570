@@ -1,0 +1,20 @@
+{
+  "name": "afford-backend",
+  "version": "1.0.0",
+  "description": "Afford Medical Technologies – Backend Assignment",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "vehicle-scheduling": "npx ts-node src/vehicle-scheduling/index.ts",
+    "notifications": "npx ts-node src/notifications/priority-inbox.ts"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
