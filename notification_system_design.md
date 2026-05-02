@@ -393,3 +393,62 @@ notificationQueue.process("send-batch", async (job) => {
 - Email is an external I/O call with its own failure modes and SLA.
 - Coupling them means a transient email failure rolls back a successful DB write → false negative (notification in app shows as unsent when it was actually saved).
 - Correct order: **DB insert → email → push**, each retried independently.
+
+---
+
+## Stage 6
+
+### Priority Inbox Implementation
+
+See: `src/notifications/priority-inbox.ts`
+
+### Scoring Formula
+
+```
+score = typeWeight × 10^13 + timestamp_ms
+```
+
+| Type | Weight |
+|------|--------|
+| Placement | 3 |
+| Result | 2 |
+| Event | 1 |
+
+Type dominates; within same type, more recent timestamp wins (higher ms value = higher score).
+
+### Algorithm: Min-Heap of Size N
+
+To find top N from M notifications efficiently:
+
+```
+heap = MinHeap(size=N)
+
+for each notification:
+  s = score(notification)
+  if heap.size < N:
+    heap.push(notification)
+  elif s > heap.peek().score:     ← current worst in top-N
+    heap.pop()
+    heap.push(notification)
+
+return heap contents sorted descending
+```
+
+**Complexity:** O(M log N) time, O(N) space — far better than sorting all M notifications O(M log M) when M >> N.
+
+**Maintaining top N as new notifications stream in:** same algorithm — each new notification is evaluated in O(log N). No need to re-sort the full list.
+
+### Sample Output (live API run)
+
+```
+#1  [Placement] PayPal Holdings Inc. hiring        2026-05-02 05:04:03
+#2  [Placement] Broadcom Inc. hiring               2026-05-02 04:03:57
+#3  [Placement] Berkshire Hathaway Inc. hiring     2026-05-02 01:03:15
+#4  [Placement] PayPal Holdings Inc. hiring        2026-05-01 21:34:15
+#5  [Placement] Booking Holdings Inc. hiring       2026-05-01 07:04:33
+#6  [Result]    internal                           2026-05-02 03:03:21
+#7  [Result]    mid-sem                            2026-05-02 00:32:51
+#8  [Result]    end-sem                            2026-05-01 20:04:45
+#9  [Result]    internal                           2026-05-01 09:03:27
+#10 [Result]    project-review                     2026-05-01 06:33:45
+```
