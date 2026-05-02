@@ -5,14 +5,17 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "start": "npx ts-node src/server/index.ts",
     "vehicle-scheduling": "npx ts-node src/vehicle-scheduling/index.ts",
     "notifications": "npx ts-node src/notifications/priority-inbox.ts"
   },
   "dependencies": {
     "axios": "^1.7.2",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^20.14.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
