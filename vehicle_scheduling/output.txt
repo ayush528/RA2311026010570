@@ -1,0 +1,165 @@
+VEHICLE MAINTENANCE SCHEDULER – OUTPUT
+==================================================
+
+Total Depots : 5
+Total Vehicles: 32
+
+Depot 1
+  Capacity     : 60 mechanic-hours
+  Used         : 60 mechanic-hours
+  Total Impact : 97
+  Tasks (15):
+    - cc49583b-7bb7-44c0-8df7-c07444484234
+    - 2d06187c-24b1-40b1-b93a-0e1ab0c2de91
+    - a468f6f3-6df6-4510-a2d4-89fbc800bb8e
+    - 261239b3-a19c-4b03-ab9c-be7e4fc539d7
+    - 312c2777-176b-4e15-896a-a144b2187afc
+    - 99d74887-a693-405b-bdd0-a30b247f51be
+    - ce75c49d-c67d-46c7-87ac-f0d5f6b98b4d
+    - fc2d223b-71dc-4b7f-8b07-5f2604abbb5b
+    - 9af8c212-0252-48c3-a8d3-7003c7876166
+    - fc143100-ee14-4660-8ca7-227f1335dccc
+    - 6f3d35f4-9bf4-493d-adce-04df39b316f9
+    - 5d8c6eab-016c-44f5-a47e-0642abe047da
+    - 251bf2d1-d01e-4c56-bafa-9984bcd5d8b3
+    - d093bfdf-5c19-4321-b99e-c1a1a937c67f
+    - 27a3a5c2-523e-4c45-9ee4-ecf35eaf55df
+
+Depot 2
+  Capacity     : 135 mechanic-hours
+  Used         : 135 mechanic-hours
+  Total Impact : 140
+  Tasks (28):
+    - cc49583b-7bb7-44c0-8df7-c07444484234
+    - 2d06187c-24b1-40b1-b93a-0e1ab0c2de91
+    - ca5950db-79ea-44aa-b45b-3dce227898b4
+    - 5e84bf23-dbd1-4660-8a09-dcc199d176f7
+    - 21e41fcc-eea8-4d9e-b73d-0eef31c31067
+    - abed6a15-475e-4523-afec-3513703bbba7
+    - a468f6f3-6df6-4510-a2d4-89fbc800bb8e
+    - 061d2a44-68b4-43f5-a712-2bdc8b7ec6c1
+    - 261239b3-a19c-4b03-ab9c-be7e4fc539d7
+    - da728e0f-dfb3-45d5-9ff9-1f55f7a26e40
+    - 1a570733-a1ce-4c03-afff-a2f14508f428
+    - 283205f8-66c9-4d65-b5dd-9ad9528f3b39
+    - 312c2777-176b-4e15-896a-a144b2187afc
+    - 99d74887-a693-405b-bdd0-a30b247f51be
+    - ce75c49d-c67d-46c7-87ac-f0d5f6b98b4d
+    - fc2d223b-71dc-4b7f-8b07-5f2604abbb5b
+    - 9af8c212-0252-48c3-a8d3-7003c7876166
+    - fc143100-ee14-4660-8ca7-227f1335dccc
+    - 6f3d35f4-9bf4-493d-adce-04df39b316f9
+    - 5d8c6eab-016c-44f5-a47e-0642abe047da
+    - 251bf2d1-d01e-4c56-bafa-9984bcd5d8b3
+    - d093bfdf-5c19-4321-b99e-c1a1a937c67f
+    - bc4a678a-b359-4462-bf09-4f397a66558d
+    - 8a8e6335-3800-412b-8fff-2c5577d86887
+    - 27a3a5c2-523e-4c45-9ee4-ecf35eaf55df
+    - 5f8147cc-45c0-451d-9038-ad65be4a0e64
+    - 63e1521f-35bd-4792-8b83-2a6f0264daaa
+    - 4d9336a7-2c7b-4d79-8fae-3c78c2475e9f
+
+Depot 3
+  Capacity     : 188 mechanic-hours
+  Used         : 157 mechanic-hours
+  Total Impact : 147
+  Tasks (32):
+    - cc49583b-7bb7-44c0-8df7-c07444484234
+    - 2d06187c-24b1-40b1-b93a-0e1ab0c2de91
+    - ca5950db-79ea-44aa-b45b-3dce227898b4
+    - 70bd3373-c94d-4937-b152-e462c84211f6
+    - 7a102465-571c-4046-9d11-a8e128c5041b
+    - 5e84bf23-dbd1-4660-8a09-dcc199d176f7
+    - 21e41fcc-eea8-4d9e-b73d-0eef31c31067
+    - abed6a15-475e-4523-afec-3513703bbba7
+    - a468f6f3-6df6-4510-a2d4-89fbc800bb8e
+    - 061d2a44-68b4-43f5-a712-2bdc8b7ec6c1
+    - 261239b3-a19c-4b03-ab9c-be7e4fc539d7
+    - 12378bf9-20c4-4350-904b-1633aca5b9e7
+    - da728e0f-dfb3-45d5-9ff9-1f55f7a26e40
+    - 1a570733-a1ce-4c03-afff-a2f14508f428
+    - 283205f8-66c9-4d65-b5dd-9ad9528f3b39
+    - 312c2777-176b-4e15-896a-a144b2187afc
+    - 99d74887-a693-405b-bdd0-a30b247f51be
+    - ce75c49d-c67d-46c7-87ac-f0d5f6b98b4d
+    - fc2d223b-71dc-4b7f-8b07-5f2604abbb5b
+    - 9af8c212-0252-48c3-a8d3-7003c7876166
+    - fc143100-ee14-4660-8ca7-227f1335dccc
+    - 6f3d35f4-9bf4-493d-adce-04df39b316f9
+    - 5d8c6eab-016c-44f5-a47e-0642abe047da
+    - 251bf2d1-d01e-4c56-bafa-9984bcd5d8b3
+    - d093bfdf-5c19-4321-b99e-c1a1a937c67f
+    - bc4a678a-b359-4462-bf09-4f397a66558d
+    - 8a8e6335-3800-412b-8fff-2c5577d86887
+    - 27a3a5c2-523e-4c45-9ee4-ecf35eaf55df
+    - 5f8147cc-45c0-451d-9038-ad65be4a0e64
+    - db2bc99d-332b-4ff8-82c9-8640c5a6c888
+    - 63e1521f-35bd-4792-8b83-2a6f0264daaa
+    - 4d9336a7-2c7b-4d79-8fae-3c78c2475e9f
+
+Depot 4
+  Capacity     : 97 mechanic-hours
+  Used         : 97 mechanic-hours
+  Total Impact : 123
+  Tasks (22):
+    - cc49583b-7bb7-44c0-8df7-c07444484234
+    - 2d06187c-24b1-40b1-b93a-0e1ab0c2de91
+    - ca5950db-79ea-44aa-b45b-3dce227898b4
+    - 21e41fcc-eea8-4d9e-b73d-0eef31c31067
+    - a468f6f3-6df6-4510-a2d4-89fbc800bb8e
+    - 061d2a44-68b4-43f5-a712-2bdc8b7ec6c1
+    - 261239b3-a19c-4b03-ab9c-be7e4fc539d7
+    - da728e0f-dfb3-45d5-9ff9-1f55f7a26e40
+    - 312c2777-176b-4e15-896a-a144b2187afc
+    - 99d74887-a693-405b-bdd0-a30b247f51be
+    - ce75c49d-c67d-46c7-87ac-f0d5f6b98b4d
+    - fc2d223b-71dc-4b7f-8b07-5f2604abbb5b
+    - 9af8c212-0252-48c3-a8d3-7003c7876166
+    - fc143100-ee14-4660-8ca7-227f1335dccc
+    - 6f3d35f4-9bf4-493d-adce-04df39b316f9
+    - 5d8c6eab-016c-44f5-a47e-0642abe047da
+    - 251bf2d1-d01e-4c56-bafa-9984bcd5d8b3
+    - d093bfdf-5c19-4321-b99e-c1a1a937c67f
+    - bc4a678a-b359-4462-bf09-4f397a66558d
+    - 8a8e6335-3800-412b-8fff-2c5577d86887
+    - 27a3a5c2-523e-4c45-9ee4-ecf35eaf55df
+    - 4d9336a7-2c7b-4d79-8fae-3c78c2475e9f
+
+Depot 5
+  Capacity     : 164 mechanic-hours
+  Used         : 157 mechanic-hours
+  Total Impact : 147
+  Tasks (32):
+    - cc49583b-7bb7-44c0-8df7-c07444484234
+    - 2d06187c-24b1-40b1-b93a-0e1ab0c2de91
+    - ca5950db-79ea-44aa-b45b-3dce227898b4
+    - 70bd3373-c94d-4937-b152-e462c84211f6
+    - 7a102465-571c-4046-9d11-a8e128c5041b
+    - 5e84bf23-dbd1-4660-8a09-dcc199d176f7
+    - 21e41fcc-eea8-4d9e-b73d-0eef31c31067
+    - abed6a15-475e-4523-afec-3513703bbba7
+    - a468f6f3-6df6-4510-a2d4-89fbc800bb8e
+    - 061d2a44-68b4-43f5-a712-2bdc8b7ec6c1
+    - 261239b3-a19c-4b03-ab9c-be7e4fc539d7
+    - 12378bf9-20c4-4350-904b-1633aca5b9e7
+    - da728e0f-dfb3-45d5-9ff9-1f55f7a26e40
+    - 1a570733-a1ce-4c03-afff-a2f14508f428
+    - 283205f8-66c9-4d65-b5dd-9ad9528f3b39
+    - 312c2777-176b-4e15-896a-a144b2187afc
+    - 99d74887-a693-405b-bdd0-a30b247f51be
+    - ce75c49d-c67d-46c7-87ac-f0d5f6b98b4d
+    - fc2d223b-71dc-4b7f-8b07-5f2604abbb5b
+    - 9af8c212-0252-48c3-a8d3-7003c7876166
+    - fc143100-ee14-4660-8ca7-227f1335dccc
+    - 6f3d35f4-9bf4-493d-adce-04df39b316f9
+    - 5d8c6eab-016c-44f5-a47e-0642abe047da
+    - 251bf2d1-d01e-4c56-bafa-9984bcd5d8b3
+    - d093bfdf-5c19-4321-b99e-c1a1a937c67f
+    - bc4a678a-b359-4462-bf09-4f397a66558d
+    - 8a8e6335-3800-412b-8fff-2c5577d86887
+    - 27a3a5c2-523e-4c45-9ee4-ecf35eaf55df
+    - 5f8147cc-45c0-451d-9038-ad65be4a0e64
+    - db2bc99d-332b-4ff8-82c9-8640c5a6c888
+    - 63e1521f-35bd-4792-8b83-2a6f0264daaa
+    - 4d9336a7-2c7b-4d79-8fae-3c78c2475e9f
+
