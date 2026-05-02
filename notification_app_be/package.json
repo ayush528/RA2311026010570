@@ -1,0 +1,17 @@
+{
+  "name": "notification-app-be",
+  "version": "1.0.0",
+  "description": "Priority inbox for campus notifications (Placement > Result > Event)",
+  "main": "src/priority-inbox.ts",
+  "scripts": {
+    "start": "npx ts-node src/priority-inbox.ts"
+  },
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

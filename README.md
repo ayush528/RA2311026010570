@@ -9,42 +9,27 @@
 ## Project Structure
 
 ```
-afford/
-├── logging_middleware/             # Logger utility
-├── vehicle_maintence_scheduler/    # Vehicle maintenance scheduler
-├── notification_app_be/            # Priority inbox implementation
+AFFORD/
+├── logging_middleware/
+│   ├── src/logger.ts
+│   ├── screenshots/
+│   └── package.json
+├── vehicle_maintenance_scheduler/
+│   ├── src/index.ts
+│   ├── src/server.ts
+│   ├── screenshots/
+│   └── package.json
+├── notification_app_be/
+│   ├── src/priority-inbox.ts
+│   └── package.json
 ├── notification_system_design.md
-├── vehicle_scheduling/             # Output artefacts (JSON + text)
-├── postman_screenshots/            # ← Postman API response screenshots (see below)
-├── src/server/                     # Express API server
-├── .gitignore
-└── package.json
+├── vehicle_scheduling/     (output artefacts)
+├── project_details/
+├── README.md
+├── package.json
+├── tsconfig.json
+└── .gitignore
 ```
-
----
-
-## Postman Screenshots
-
-All Postman API response screenshots live in the **`postman_screenshots/`** directory at the project root.
-
-### What to include
-
-| Screenshot filename | Endpoint captured |
-|---|---|
-| `01_auth.png` | `POST /evaluation-service/auth` – token response |
-| `02_depots.png` | `GET /evaluation-service/depots` – depot list |
-| `03_vehicles.png` | `GET /evaluation-service/vehicles` – vehicle task list |
-| `04_notifications.png` | `GET /evaluation-service/notifications` – raw notification feed |
-| `05_log.png` | `POST /evaluation-service/log` – structured log entry |
-
-### Why this directory
-
-Top-level directories in this repo follow **`snake_case`** (e.g. `vehicle_scheduling/`, `project_details/`).  
-`postman_screenshots/` matches that convention and keeps visual evidence separate from source code and generated output.
-
-Each screenshot should capture:
-- The full request (method, URL, headers including `Authorization: Bearer <token>`)
-- The complete response body and HTTP status code
 
 ---
 

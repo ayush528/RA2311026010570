@@ -129,7 +129,7 @@ async function main() {
   console.log("\n========== VEHICLE MAINTENANCE SCHEDULE ==========\n");
   console.log(JSON.stringify(summary, null, 2));
 
-  const outDir = path.join(__dirname, "../vehicle_scheduling");
+  const outDir = path.join(__dirname, "../../vehicle_scheduling");
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(
     path.join(outDir, "output.json"),

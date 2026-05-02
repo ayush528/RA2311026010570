@@ -1,0 +1,13 @@
+{
+  "name": "logging-middleware",
+  "version": "1.0.0",
+  "description": "Shared logging middleware for Afford backend services",
+  "main": "src/logger.ts",
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.4.5"
+  }
+}

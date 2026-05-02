@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "npx ts-node src/server/index.ts",
-    "vehicle-scheduling": "npx ts-node vehicle_maintence_scheduler/index.ts",
-    "notifications": "npx ts-node notification_app_be/priority-inbox.ts"
+    "start": "npx ts-node vehicle_maintenance_scheduler/src/server.ts",
+    "vehicle-scheduling": "npx ts-node vehicle_maintenance_scheduler/src/index.ts",
+    "notifications": "npx ts-node notification_app_be/src/priority-inbox.ts"
   },
   "dependencies": {
     "axios": "^1.7.2",
