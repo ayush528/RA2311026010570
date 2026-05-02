@@ -24,7 +24,6 @@ AFFORD/
 │   └── package.json
 ├── notification_system_design.md
 ├── vehicle_scheduling/     (output artefacts)
-├── project_details/
 ├── README.md
 ├── package.json
 ├── tsconfig.json
@@ -53,7 +52,7 @@ Output artefacts are written to `vehicle_scheduling/output.json` and `vehicle_sc
 
 The evaluation was well-structured and genuinely engaging. Each stage built naturally on the previous one, which made it easy to stay in flow throughout. The problems were interesting enough to think through carefully rather than just pattern-match against standard solutions. Time management was straightforward because each stage had a clear, self-contained scope.
 
-Overall the experience was smooth — the tooling worked, the API was responsive, and the progression from design to implementation to optimisation felt logical.
+Overall the experience was smooth  the tooling worked, the API was responsive, and the progression from design to implementation to optimisation felt logical.
 
 ---
 
