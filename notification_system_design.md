@@ -281,3 +281,43 @@ WHERE n.type = 'Placement'
 CREATE INDEX idx_notifications_type_created
     ON notifications (type, created_at DESC);
 ```
+
+---
+
+## Stage 4
+
+### Problem
+Notifications fetched on every page load → DB hit per request → DB overwhelmed at 50k concurrent students.
+
+### Solution: Redis Cache-Aside
+
+```
+On GET /notifications:
+  key = "notifs:{studentId}:unread"
+  1. Check Redis → hit  → return immediately (no DB touch)
+  2. Miss → query Postgres → store in Redis (TTL = 60s) → return
+
+On new notification created:
+  DEL "notifs:{studentId}:unread"   ← invalidate, next read re-populates
+
+On notification marked read:
+  DEL "notifs:{studentId}:unread"
+```
+
+**Unread count key (separate, cheaper to cache):**
+```
+key = "notifs:{studentId}:unread-count"   TTL = 30s
+```
+
+### Tradeoffs
+
+| Strategy | Pro | Con |
+|----------|-----|-----|
+| Cache-aside (chosen) | Simple; only active students occupy memory | Stale window ≤ TTL on concurrent writes |
+| Write-through | Always consistent | Cache filled even for inactive students |
+| Read-through | Transparent to app layer | More complex library/middleware needed |
+| Pub/Sub invalidation | Near real-time consistency | Extra infrastructure; more moving parts |
+
+**TTL recommendation:** 60 s for notification list, 30 s for unread count. A campus platform can tolerate brief staleness — showing "6 unread" vs "7 unread" for 30 s is acceptable.
+
+**Eviction policy:** `allkeys-lru` on Redis so least-recently-active students are evicted first under memory pressure.
