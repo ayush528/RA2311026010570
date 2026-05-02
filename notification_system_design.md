@@ -321,3 +321,75 @@ key = "notifs:{studentId}:unread-count"   TTL = 30s
 **TTL recommendation:** 60 s for notification list, 30 s for unread count. A campus platform can tolerate brief staleness — showing "6 unread" vs "7 unread" for 30 s is acceptable.
 
 **Eviction policy:** `allkeys-lru` on Redis so least-recently-active students are evicted first under memory pressure.
+
+---
+
+## Stage 5
+
+### Problems with original `notify_all`
+
+```python
+function notify_all(student_ids: array, message: string):
+    for student_id in student_ids:
+        send_email(student_id, message)   # calls Email API
+        save_to_db(student_id, message)   # DB insert
+        push_to_app(student_id, message)
+```
+
+**Shortcomings:**
+1. **Not atomic** — email failed at student #200; remaining 49,800 never notified, yet some may have a DB entry → inconsistent state.
+2. **Synchronous loop** — 50k iterations × 3 I/O calls each = minutes of blocking.
+3. **No retry** — transient email API failure silently drops notifications.
+4. **No progress tracking** — impossible to resume from the failure point.
+5. **Email and DB tightly coupled** — one failure blocks the other.
+
+### Redesigned Implementation
+
+**Decouple using a message queue (BullMQ):**
+
+```typescript
+// Admin triggers bulk job — returns immediately
+async function notify_all(student_ids: string[], message: string): Promise<void> {
+  const jobId = uuid();
+  await db.insert("bulk_jobs", { id: jobId, total: student_ids.length, status: "queued" });
+
+  const BATCH_SIZE = 500;
+  for (let i = 0; i < student_ids.length; i += BATCH_SIZE) {
+    const batch = student_ids.slice(i, i + BATCH_SIZE);
+    await notificationQueue.add("send-batch", { jobId, batch, message }, {
+      attempts: 5,
+      backoff: { type: "exponential", delay: 2000 },
+    });
+  }
+}
+
+// Worker — N parallel instances, each handles one batch
+notificationQueue.process("send-batch", async (job) => {
+  const { jobId, batch, message } = job.data;
+
+  // 1. Save to DB first (idempotent — ON CONFLICT DO NOTHING)
+  await db.bulkInsert(
+    "notifications",
+    batch.map((sid) => ({ student_id: sid, message, type: "Placement" }))
+  );
+
+  // 2. Email — retried independently on failure
+  const emailResults = await Promise.allSettled(
+    batch.map((sid) => emailService.send(sid, message))
+  );
+
+  // 3. In-app push — fire-and-forget, non-blocking
+  await Promise.allSettled(batch.map((sid) => pushService.notify(sid, message)));
+
+  const failed = emailResults.filter((r) => r.status === "rejected").length;
+  if (failed > 0) throw new Error(`${failed} emails failed — BullMQ will retry batch`);
+});
+```
+
+### Should DB insert and email happen together?
+
+**No — separate them:**
+- DB insert is the **source of truth**; it must succeed first, independently of email.
+- Email is an external I/O call with its own failure modes and SLA.
+- Coupling them means a transient email failure rolls back a successful DB write → false negative (notification in app shows as unsent when it was actually saved).
+- Correct order: **DB insert → email → push**, each retried independently.
