@@ -215,3 +215,69 @@ WHERE student_id = $1 AND is_read = false;
 | `COUNT(*)` slow | Counts all rows | Cache count in Redis, invalidate on insert/read |
 | Storage bloat | Old read notifications pile up | Archive rows older than 90 days to cold storage |
 | Hotspot on popular student | Many joins on same student_id | Read replicas + connection pooling (PgBouncer) |
+
+---
+
+## Stage 3
+
+### Original Query Analysis
+
+```sql
+SELECT * FROM notifications
+WHERE studentID = 1042 AND isRead = false
+ORDER BY createdAt DESC;
+```
+
+**Why it's slow:**
+1. `SELECT *` fetches all columns including large `message` text — unnecessary I/O.
+2. No composite index on `(studentID, isRead, createdAt)` — full table scan on 5M rows.
+3. `ORDER BY createdAt DESC` with no index forces an in-memory sort of all matching rows.
+4. Estimated cost: O(n) scan + O(k log k) sort where n = total rows, k = unread for student.
+
+**Optimised query:**
+```sql
+SELECT id, type, message, is_read, created_at
+FROM notifications
+WHERE student_id = $1
+  AND is_read = false
+ORDER BY created_at DESC
+LIMIT 50;
+```
+
+**Required index:**
+```sql
+CREATE INDEX idx_notifications_student_unread
+    ON notifications (student_id, is_read, created_at DESC)
+    WHERE is_read = false;
+```
+
+With this partial index, the query becomes an index-only scan — O(log n + k) vs O(n).
+
+---
+
+### Should You Index Every Column?
+
+**No.** Counter-productive because:
+- Each index is a separate B-tree maintained on every `INSERT`, `UPDATE`, `DELETE`.
+- With 5M notifications and frequent writes, blanket indexing increases write latency significantly.
+- PostgreSQL's query planner may choose a suboptimal index when too many exist.
+
+**Rule:** index only columns in `WHERE`, `ORDER BY`, or `JOIN` clauses of hot query paths.
+
+---
+
+### Students with Placement notification in last 7 days
+
+```sql
+SELECT DISTINCT s.id, s.name, s.email
+FROM students s
+JOIN notifications n ON n.student_id = s.id
+WHERE n.type = 'Placement'
+  AND n.created_at >= now() - INTERVAL '7 days';
+```
+
+**Supporting index:**
+```sql
+CREATE INDEX idx_notifications_type_created
+    ON notifications (type, created_at DESC);
+```
